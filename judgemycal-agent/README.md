@@ -1,4 +1,4 @@
-# JudgeMyCal — Agentic App (Google ADK)
+# JudgeMyCal — Agentic Application
 
 The **brain** behind JudgeMyCal: a multi-agent system built on Google's Agent
 Development Kit (ADK), with a real MCP server, capability sub-agents, a runtime
@@ -6,9 +6,7 @@ persona layer, and a **non-overridable safety floor** implemented as model
 callbacks. The Android app in the companion repo is the client surface; this is the
 agent that reasons and acts.
 
-> Kaggle · *AI Agents Intensive — Vibe Coding Capstone* · Track: **Concierge Agents**
-
-## Problem (short)
+## Problem
 
 Photo calorie tracking is easy to abandon (friction), easy to distrust (~15–25%
 error, driven by portion estimation), and easy to make harmful (engagement-driven
