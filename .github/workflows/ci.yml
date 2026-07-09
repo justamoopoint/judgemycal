@@ -67,7 +67,7 @@ jobs:
           path: android/app/build/outputs/bundle/release/*.aab
 
   android-instrumented:
-    name: Android (instrumented: capture flow + safety floor)
+    name: "Android (instrumented: capture flow + safety floor)"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
