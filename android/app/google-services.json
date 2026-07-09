@@ -1,0 +1,30 @@
+{
+  "_comment": "PLACEHOLDER so debug/CI builds compile. Replace with the real file from your Firebase project (RUNBOOK §3) before connecting to a backend. These are client identifiers, not secrets — but these particular ones are fake.",
+  "project_info": {
+    "project_number": "000000000000",
+    "project_id": "judgemycal-placeholder",
+    "storage_bucket": "judgemycal-placeholder.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:000000000000:android:0000000000000000000000",
+        "android_client_info": {
+          "package_name": "com.judgemycal.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-PLACEHOLDER-PLACEHOLDER-PLACEHOLD"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

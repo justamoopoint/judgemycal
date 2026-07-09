@@ -1,0 +1,57 @@
+<resources>
+    <string name="app_name">JudgeMyCal</string>
+    <string name="tagline">Your health companion with personality</string>
+
+    <!-- Wellness framing throughout: affectionate, never clinical, never shaming.
+         This copy is part of the Play health-content posture (docs/store-listing.md). -->
+    <string name="home_title">Today</string>
+    <string name="home_empty">Nothing logged yet — and that\'s okay. Snap a meal when you\'re ready.</string>
+    <string name="home_total">Logged so far: about %1$d kcal (%2$d–%3$d)</string>
+
+    <string name="capture_title">Judge my meal</string>
+    <string name="capture_take_photo">Take photo</string>
+    <string name="capture_pick_photo">Pick from gallery</string>
+    <string name="capture_demo">Try a demo meal</string>
+    <string name="capture_note_hint">Anything I should know? (e.g. \"no oil\")</string>
+    <string name="estimate_range">~%1$d kcal (%2$d–%3$d)</string>
+    <string name="estimate_confidence">Confidence: %1$s</string>
+    <string name="estimate_least_sure">Least sure about: %1$s</string>
+    <string name="estimate_log_meal">Log this meal</string>
+    <string name="estimate_offline_badge">Offline estimate</string>
+    <string name="estimate_correct_portion">Portion correction</string>
+
+    <string name="shopping_title">Shopping swaps</string>
+    <string name="shopping_add_hint">Add a basket item (e.g. white rice)</string>
+    <string name="shopping_add">Add</string>
+    <string name="shopping_get_swaps">Suggest swaps</string>
+    <string name="shopping_note">Suggestions only — your call, no pressure.</string>
+    <string name="shopping_empty">Add a few items and I\'ll suggest goal-friendly swaps.</string>
+
+    <string name="workout_title">Workout</string>
+    <string name="workout_goal_hint">Goal (e.g. strength, cardio)</string>
+    <string name="workout_minutes">Time: %1$d min</string>
+    <string name="workout_equipment_hint">Equipment on hand (or \"none\")</string>
+    <string name="workout_build">Build my session</string>
+    <string name="workout_warmup">Warm-up — %1$d min</string>
+    <string name="workout_main">Main — %1$d min</string>
+    <string name="workout_cooldown">Cool-down — %1$d min</string>
+    <string name="workout_history">Recent sessions</string>
+
+    <string name="persona_title">Who\'s judging today?</string>
+    <string name="persona_buddy">Buddy</string>
+    <string name="persona_buddy_desc">Unconditionally supportive. The default.</string>
+    <string name="persona_auntie">Auntie</string>
+    <string name="persona_auntie_desc">Guilt-trips you with love. Opt-in.</string>
+    <string name="persona_coach">Coach</string>
+    <string name="persona_coach_desc">No-nonsense, high energy. Opt-in.</string>
+
+    <string name="settings_title">Settings</string>
+    <string name="settings_disclaimer">JudgeMyCal is a wellness companion, not a medical or diagnostic tool. Calorie estimates are honest ranges, never exact numbers.</string>
+
+    <string name="nav_home">Today</string>
+    <string name="nav_capture">Meal</string>
+    <string name="nav_shopping">Shopping</string>
+    <string name="nav_workout">Workout</string>
+
+    <string name="error_offline_fallback">Couldn\'t reach your companion — showing an on-device estimate instead.</string>
+</resources>

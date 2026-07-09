@@ -1,0 +1,22 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Plate -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M54,30a24,24 0 1,0 0,48a24,24 0 1,0 0,-48z" />
+    <!-- Inner plate ring -->
+    <path
+        android:fillColor="#6C4DF6"
+        android:pathData="M54,36a18,18 0 1,0 0,36a18,18 0 1,0 0,-36z" />
+    <!-- Mint confidence band arc -->
+    <path
+        android:fillColor="#7BE8C4"
+        android:pathData="M54,40a14,14 0 0,1 14,14l-6,0a8,8 0 0,0 -8,-8z" />
+    <!-- Smile -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M46,56a8,8 0 0,0 16,0l-4,0a4,4 0 0,1 -8,0z" />
+</vector>
