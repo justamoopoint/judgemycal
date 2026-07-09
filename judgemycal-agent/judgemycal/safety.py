@@ -21,7 +21,7 @@ from typing import Optional
 _DISTRESS = [re.compile(p, re.I) for p in [
     r"\bstarv(e|ing)\b", r"haven'?t eaten", r"stop(ped)? eating", r"skip(ping)? meals",
     r"\bnot eating\b", r"barely eat", r"punish myself",
-    r"purge", r"purging", r"throw(ing)? up", r"make myself sick", r"vomit",
+    r"purge", r"purging", r"throw(ing)? up", r"ma(?:k|d)e myself sick", r"vomit",
     r"hate my body", r"hate how i look", r"i'?m disgusting", r"i'?m so fat", r"worthless",
     r"hurt myself", r"want to disappear", r"don'?t want to be here", r"end it all",
     r"no reason to live",
