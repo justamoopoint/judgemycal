@@ -1,8 +1,10 @@
 name: CI
 
+# Branches with an open PR are covered by the pull_request trigger alone,
+# so pushes to them don't double-run the suite.
 on:
   push:
-    branches: ["main", "claude/**"]
+    branches: ["main"]
   pull_request:
 
 concurrency:
@@ -89,7 +91,11 @@ jobs:
           profile: pixel_6
           disable-animations: true
           working-directory: android
-          script: ./gradlew --no-daemon connectedDebugAndroidTest
+          script: |
+            adb wait-for-device
+            adb shell input keyevent KEYCODE_WAKEUP
+            adb shell wm dismiss-keyguard || true
+            ./gradlew --no-daemon connectedDebugAndroidTest
       - name: Upload instrumented test reports
         if: failure()
         uses: actions/upload-artifact@v4

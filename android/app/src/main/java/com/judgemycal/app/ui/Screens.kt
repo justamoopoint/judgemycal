@@ -99,12 +99,8 @@ fun JudgeMyCalRoot(viewModel: AppViewModel = viewModel(factory = AppViewModel.Fa
                             }
                         },
                         icon = {},
-                        label = {
-                            Text(
-                                text = stringResource(tab.labelRes),
-                                modifier = Modifier.testTag("nav_${tab.route}"),
-                            )
-                        },
+                        label = { Text(stringResource(tab.labelRes)) },
+                        modifier = Modifier.testTag("nav_${tab.route}"),
                     )
                 }
             }
