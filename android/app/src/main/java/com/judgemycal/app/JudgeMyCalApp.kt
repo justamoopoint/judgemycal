@@ -4,8 +4,6 @@ import android.app.Application
 import android.util.Log
 import com.google.firebase.FirebaseApp
 import com.google.firebase.appcheck.FirebaseAppCheck
-import com.google.firebase.appcheck.debug.DebugAppCheckProviderFactory
-import com.google.firebase.appcheck.playintegrity.PlayIntegrityAppCheckProviderFactory
 
 class JudgeMyCalApp : Application() {
 
@@ -17,16 +15,9 @@ class JudgeMyCalApp : Application() {
         // is a runbook step, not a build-time requirement.
         runCatching {
             FirebaseApp.initializeApp(this)
-            val appCheck = FirebaseAppCheck.getInstance()
-            if (BuildConfig.DEBUG) {
-                appCheck.installAppCheckProviderFactory(
-                    DebugAppCheckProviderFactory.getInstance(),
-                )
-            } else {
-                appCheck.installAppCheckProviderFactory(
-                    PlayIntegrityAppCheckProviderFactory.getInstance(),
-                )
-            }
+            // Debug builds install the App Check debug provider; release builds
+            // install Play Integrity (per-build-type AppCheckInstaller source sets).
+            AppCheckInstaller.install(FirebaseAppCheck.getInstance())
         }.onFailure { Log.w("JudgeMyCal", "Firebase unavailable — offline demo mode", it) }
 
         if (!AppGraph.initialized) {
