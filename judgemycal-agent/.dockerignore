@@ -1,0 +1,12 @@
+.venv/
+adkenv/
+__pycache__/
+*.pyc
+.env
+.env.*
+tests/
+skills/
+demo_offline.py
+main.py
+README.md
+.gitignore

@@ -5,3 +5,4 @@ __pycache__/
 adkenv/
 *.egg-info/
 .DS_Store
+.adk/
