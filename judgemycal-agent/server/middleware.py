@@ -59,6 +59,12 @@ class FirebaseAuthMiddleware:
             await self.app(scope, receive, send)
             return
 
+        # CORS preflight carries no credentials by spec; the inner
+        # CORSMiddleware answers it. The real request still needs a token.
+        if scope.get("method") == "OPTIONS":
+            await self.app(scope, receive, send)
+            return
+
         headers = {k.decode("latin-1").lower(): v.decode("latin-1")
                    for k, v in scope.get("headers", [])}
 

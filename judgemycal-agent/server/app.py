@@ -8,6 +8,8 @@ FirebaseAuthMiddleware. Configuration is all env-driven:
   SESSION_SERVICE_URI   persistent sessions, e.g. `agentengine://<resource>` or a
                         SQLAlchemy DB URI; unset = in-memory (dev only — state
                         dies with the instance, which breaks workout continuity)
+  ALLOWED_ORIGINS       comma-separated browser origins for CORS (web app);
+                        unset = no CORS headers (native clients don't need them)
   REQUIRE_APP_CHECK=1   also require a valid X-Firebase-AppCheck header
   DISABLE_AUTH=1        local development ONLY: skip Firebase entirely
   PORT                  bind port (Cloud Run sets this; default 8080)
@@ -38,10 +40,17 @@ def create_app(
     verify_app_check: Optional[Callable[[str], None]] = None,
 ):
     """Build the app. `verify_*` overrides exist for tests; production uses Firebase."""
+    # Browser clients (the web app) need CORS; native clients don't. Origins are
+    # an explicit allowlist — unset means no CORS headers at all.
+    allowed_origins = [
+        o.strip() for o in os.environ.get("ALLOWED_ORIGINS", "").split(",") if o.strip()
+    ]
+
     app = get_fast_api_app(
         agents_dir=agents_dir or os.environ.get("AGENTS_DIR", _REPO_ROOT),
         web=False,  # never ship the dev UI on the production service
         session_service_uri=os.environ.get("SESSION_SERVICE_URI") or None,
+        allow_origins=allowed_origins or None,
     )
 
     if os.environ.get("DISABLE_AUTH") == "1":

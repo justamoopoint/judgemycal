@@ -11,14 +11,15 @@ a persona you choose (**Buddy** by default; Auntie and Coach opt-in), behind a
 | --- | --- |
 | [`judgemycal-agent/`](judgemycal-agent/) | The brain: multi-agent system on Google ADK (orchestrator + cv_calorie / health_shopping / workout_coach), MCP nutrition server, structural safety floor, and the production FastAPI server (`server/`) that fronts it with Firebase auth on Cloud Run |
 | [`android/`](android/) | The Android client: Kotlin + Jetpack Compose, SDK 35, all three capabilities against the hosted backend with a graceful on-device offline fallback |
+| [`webapp/`](webapp/) | The web client: React + Vite + TypeScript on Firebase Hosting — same capabilities, same wire contract, same in-browser offline fallback |
 | [`infra/`](infra/) | GCP setup + Cloud Run deploy scripts (dedicated minimal-permission service account, Vertex AI mode — no API key exists anywhere, budget alert) |
 | [`docs/`](docs/) | [RUNBOOK](docs/RUNBOOK.md) (deploy + release, step by step), privacy policy, Play Data Safety answers, store listing copy, submission checklist |
 
 ## Architecture
 
 ```
-Android app (Compose, SDK 35)
-   │  Firebase anonymous auth → ID token (+ App Check)
+Android app (Compose, SDK 35)      Web app (React + Vite, Firebase Hosting)
+   │  Firebase anonymous auth → ID token (+ App Check); CORS for the browser
    ▼
 Cloud Run: server/ = ADK FastAPI app + FirebaseAuthMiddleware
    │  sessions bound to Firebase UID; persona in session state
@@ -51,6 +52,8 @@ prove it.
 - **Run the agent locally** — see [`judgemycal-agent/README.md`](judgemycal-agent/README.md)
   (`demo_offline.py` needs no key; `adk run judgemycal` for the live agent).
 - **Backend tests** — `cd judgemycal-agent && pip install -r requirements-dev.txt && pytest`.
+- **Web** — `cd webapp && npm ci && npm run dev` (offline demo mode with no
+  config; see `webapp/.env.example` to point it at a backend).
 - **Android** — open `android/` in Android Studio, or `./gradlew build`.
   Set `judgemycal.backendUrl` in `android/gradle.properties` to your deployed
   backend; empty means offline demo mode.
@@ -61,5 +64,5 @@ prove it.
 
 Every push/PR runs: backend pytest · Android build + unit tests + lint ·
 R8-minified release bundle with a decompiled secret scan · instrumented
-emulator tests (capture→estimate→log flow and the safety-floor
-break-character path).
+emulator tests · web vitest + build + Playwright e2e (both platforms cover
+the capture→estimate→log flow and the safety-floor break-character path).

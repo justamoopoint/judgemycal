@@ -96,6 +96,43 @@ def test_run_with_own_userid_passes_auth(client):
     assert r.status_code == 404
 
 
+def test_cors_allows_configured_web_origin_and_preflight(monkeypatch):
+    monkeypatch.setenv("ALLOWED_ORIGINS", "https://judgemycal.web.app")
+    app = create_app(agents_dir=REPO_ROOT, verify_token=_verify,
+                     verify_app_check=_verify_app_check)
+    with TestClient(app) as c:
+        # Preflight needs no token (it can't carry one, per the CORS spec).
+        r = c.options(
+            "/run",
+            headers={
+                "Origin": "https://judgemycal.web.app",
+                "Access-Control-Request-Method": "POST",
+                "Access-Control-Request-Headers": "authorization,content-type",
+            },
+        )
+        assert r.status_code == 200
+        assert r.headers["access-control-allow-origin"] == "https://judgemycal.web.app"
+
+        # The actual request still requires a token even from an allowed origin.
+        r = c.post("/run", headers={"Origin": "https://judgemycal.web.app"}, json={})
+        assert r.status_code == 401
+
+        # Unknown origins get no CORS grant.
+        r = c.options(
+            "/run",
+            headers={
+                "Origin": "https://evil.example",
+                "Access-Control-Request-Method": "POST",
+            },
+        )
+        assert "access-control-allow-origin" not in r.headers
+
+
+def test_no_cors_headers_by_default(client):
+    r = client.get("/health", headers={"Origin": "https://judgemycal.web.app"})
+    assert "access-control-allow-origin" not in r.headers
+
+
 def test_app_check_enforced_when_required(monkeypatch):
     monkeypatch.setenv("REQUIRE_APP_CHECK", "1")
     app = create_app(agents_dir=REPO_ROOT, verify_token=_verify,

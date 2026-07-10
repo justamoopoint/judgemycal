@@ -68,6 +68,30 @@ jobs:
           name: app-release-aab
           path: android/app/build/outputs/bundle/release/*.aab
 
+  web:
+    name: "Web (vitest, build, Playwright e2e)"
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: webapp
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: webapp/package-lock.json
+      - run: npm ci
+      - run: npm run test
+      - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - run: npx playwright test
+      - name: Upload web build
+        uses: actions/upload-artifact@v4
+        with:
+          name: web-dist
+          path: webapp/dist/
+
   android-instrumented:
     name: "Android (instrumented: capture flow + safety floor)"
     runs-on: ubuntu-latest

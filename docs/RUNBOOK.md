@@ -161,3 +161,36 @@ with it (`docs/data-safety-form.md` maps them one-to-one).
 - `adk` releases move fast: server upgrades should re-run the backend test
   suite (`pytest`) before redeploying, and re-verify the `/run` wire shape
   against the Android DTOs.
+
+## 11. Web app (Firebase Hosting)
+
+The web client (`webapp/`) is the same product surface as Android — same
+backend, same wire contract, same offline fallback. To ship it:
+
+1. **Register a Web app** in the Firebase console (project settings → Add app
+   → Web). Copy the config object into `webapp/.env.local`:
+   ```
+   VITE_BACKEND_URL=https://<your-cloud-run-url>
+   VITE_FIREBASE_CONFIG={"apiKey":"...","authDomain":"...","projectId":"...","appId":"..."}
+   ```
+   (Public client identifiers, not secrets — they ship to every browser.)
+2. **Allow the web origin on the backend** — redeploy with:
+   ```bash
+   ALLOWED_ORIGINS=https://<project>.web.app ./infra/deploy.sh
+   ```
+   Without this, browsers block the calls (CORS). Native apps are unaffected.
+3. **Deploy hosting**:
+   ```bash
+   cd webapp
+   cp .firebaserc.example .firebaserc   # set your project id
+   npm ci && npm run build
+   npx firebase-tools deploy --only hosting
+   ```
+4. **App Check on web** uses the reCAPTCHA v3 provider (not Play Integrity):
+   register the site in Firebase App Check, then wire
+   `initializeAppCheck(app, { provider: new ReCaptchaV3Provider(siteKey) })`
+   in `webapp/src/data/firebase.ts` before enforcing `REQUIRE_APP_CHECK=1`.
+   Until then, leave enforcement off or web clients will be rejected.
+5. **Smoke test**: load the site, run a demo meal (offline badge should be
+   absent when the backend answers), then kill the network in devtools and
+   confirm the flagged offline fallback instead of an error.

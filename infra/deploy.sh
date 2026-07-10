@@ -55,6 +55,12 @@ if [[ "${REQUIRE_APP_CHECK:-0}" == "1" ]]; then
   ENV_VARS+=",REQUIRE_APP_CHECK=1"
 fi
 
+# Browser origins for the web app (e.g. https://<project>.web.app). Uses ^;^
+# as the gcloud delimiter since origin lists are comma-separated themselves.
+if [[ -n "${ALLOWED_ORIGINS:-}" ]]; then
+  ENV_VARS="^;^${ENV_VARS//,/;};ALLOWED_ORIGINS=${ALLOWED_ORIGINS}"
+fi
+
 echo "==> Deploying ${SERVICE_NAME} to ${REGION} (source: ${AGENT_DIR})"
 gcloud run deploy "$SERVICE_NAME" \
   --project "$PROJECT_ID" \

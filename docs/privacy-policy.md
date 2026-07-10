@@ -7,7 +7,7 @@ _Last updated: 2026-07-09_
 > repository and link to this page, or paste it into any static host. The URL
 > goes in Play Console → Store presence → Privacy policy, and must stay live.
 
-JudgeMyCal ("the app") is a wellness companion that helps you log meals,
+JudgeMyCal ("the app" — the Android app and the web app at our hosted URL, which collect and process the same data) is a wellness companion that helps you log meals,
 consider food swaps, and plan workouts, with an AI companion persona. This
 policy describes exactly what the app collects and what happens to it.
 
