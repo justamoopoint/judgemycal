@@ -83,6 +83,9 @@ Two options, both plug into `SESSION_SERVICE_URI` (redeploy with the env set):
 
 ## 6. Post-deploy smoke tests
 
+Runnable version: `URL=<service-url> WEB_API_KEY=<firebase-web-api-key> ./infra/smoke-test.sh`
+(covers checks 1-6 below and prints the manual persistence check). Or by hand:
+
 ```bash
 URL=$(gcloud run services describe judgemycal-agent --region $REGION --format 'value(status.url)')
 
